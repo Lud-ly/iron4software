@@ -9,14 +9,14 @@ Application web de la société Iron4Software SARL  avec vulnérabilités intent
 
 ## Installation
 
-git clone https://github.com/Lud-ly/iron4software.git
-cd iron4software
-sudo cp -r . /var/www/html/iron4software/
-sudo chown -R www-data:www-data /var/www/html/iron4software/
-sudo mkdir -p /var/www/html/iron4software/{uploads,logs}
-sudo chmod 777 /var/www/html/iron4software/{uploads,logs}
-mysql -u root -p < setup.sql
-sudo systemctl restart apache2
+- git clone https://github.com/Lud-ly/iron4software.git
+- cd iron4software
+- sudo cp -r . /var/www/html/iron4software/
+- sudo chown -R www-data:www-data /var/www/html/iron4software/
+- sudo mkdir -p /var/www/html/iron4software/{uploads,logs}
+- sudo chmod 777 /var/www/html/iron4software/{uploads,logs}
+- mysql -u root -p < setup.sql
+- sudo systemctl restart apache2
 
 ## Accès
 - URL: http://localhost/iron4software/
