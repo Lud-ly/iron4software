@@ -1,0 +1,27 @@
+# Iron4Software - Configuration Apache
+RewriteEngine On
+RewriteBase /iron4software/
+
+# Headers de sécurité désactivés (vulnérable)
+Header unset X-Frame-Options
+Header unset X-XSS-Protection
+Header unset X-Content-Type-Options
+Header set X-Powered-By "Iron4Software/1.0 - PHP/7.4.33"
+
+# Redirection des pages sécurisées vers login si pas connecté
+RewriteCond %{REQUEST_URI} ^/iron4software/secure/
+RewriteCond %{HTTP_COOKIE} !PHPSESSID=
+RewriteRule ^(.*)$ /iron4software/auth/login.php [R=302,L]
+
+# Configuration PHP vulnérable
+php_flag display_errors on
+php_flag expose_php on
+php_value allow_url_fopen on
+php_value allow_url_include on
+
+# Permissions upload permissives
+<Directory "uploads">
+    Options Indexes
+    AllowOverride All
+    Require all granted
+</Directory>

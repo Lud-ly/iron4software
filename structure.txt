@@ -1,0 +1,25 @@
+iron4software/
+├── .htaccess
+├── index.php
+├── config/
+│   ├── database.php
+│   └── security.php
+├── includes/
+│   ├── header.php
+│   ├── footer.php
+│   └── functions.php
+├── auth/
+│   ├── login.php
+│   └── logout.php
+├── secure/
+│   ├── dashboard.php
+│   ├── admin.php
+│   ├── tools.php
+│   └── reports.php
+├── assets/
+│   └── css/
+│       └── style.css
+├── setup.sql
+└── README.md
+
+
