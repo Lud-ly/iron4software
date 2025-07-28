@@ -4,7 +4,14 @@
  * @authors Ludo, Damien, Emilio
  */
 
-session_start();
+// AJOUT OBLIGATOIRE
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Inclusion de la base de données
+require_once __DIR__ . '/database.php';
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -26,37 +33,46 @@ class Security {
     }
     
     public static function login($username, $password) {
-        $db = Database::getInstance()->getConnection();
-        
-        // VULNÉRABILITÉ INTENTIONNELLE - SQL Injection
-        $sql = "SELECT * FROM employees WHERE username = '$username' AND password = '$password' AND status = 'active'";
-        
-        $result = $db->query($sql);
-        
-        if ($result && $result->num_rows > 0) {
-            $user = $result->fetch_assoc();
+        try {
+            $db = Database::getInstance()->getConnection();
             
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role'];
-            $_SESSION['department'] = $user['department'];
+            // VERSION SÉCURISÉE (recommandée)
+            $stmt = $db->prepare("SELECT * FROM employees WHERE username = ? AND password = ? AND status = 'active'");
+            $stmt->execute([$username, $password]);
             
-            self::logActivity('LOGIN', "Connexion: " . $user['username']);
-            return true;
+            $user = $stmt->fetch();
+            if ($user) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role'];
+                $_SESSION['department'] = $user['department'];
+                
+                self::logActivity('LOGIN', "Connexion: " . $user['username']);
+                return true;
+            }
+            
+            return false;
+        } catch (Exception $e) {
+            error_log("Login error: " . $e->getMessage());
+            return false;
         }
-        
-        return false;
     }
     
     public static function logout() {
         if (isset($_SESSION['username'])) {
             self::logActivity('LOGOUT', "Déconnexion: " . $_SESSION['username']);
         }
+        session_unset();
         session_destroy();
     }
     
     private static function logActivity($action, $details) {
-        $logFile = 'logs/security.log';
+        $logDir = __DIR__ . '/../logs';
+        if (!is_dir($logDir)) {
+            mkdir($logDir, 0755, true);
+        }
+        
+        $logFile = $logDir . '/security.log';
         $timestamp = date('Y-m-d H:i:s');
         $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
         

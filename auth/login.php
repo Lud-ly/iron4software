@@ -1,4 +1,8 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once '../config/database.php';
 require_once '../config/security.php';
 require_once '../includes/functions.php';
@@ -11,7 +15,7 @@ if (Security::isLoggedIn()) {
     exit;
 }
 
-if ($_POST) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = sanitizeInput($_POST['username'] ?? '');
     $password = sanitizeInput($_POST['password'] ?? '');
     

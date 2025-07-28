@@ -32,5 +32,5 @@ sudo systemctl restart apache2
 - Configuration PHP vulnérable
 
 ## ⚠️ Avertissement
-Application VOLONTAIREMENT vulnérable pour tests de sécurité uniquement.
+chmod 755 /var/www/html/iron4software/logs
 

@@ -20,8 +20,4 @@ php_value allow_url_fopen on
 php_value allow_url_include on
 
 # Permissions upload permissives
-<Directory "uploads">
-    Options Indexes
-    AllowOverride All
-    Require all granted
-</Directory>
+Options +Indexes

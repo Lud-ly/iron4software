@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle ?? 'Iron4Software'; ?></title>
-    <link rel="stylesheet" href="/iron4software/assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <meta name="company" content="Iron4Software SARL">
     <meta name="location" content="Saint-Martin-de-Londres, France">
     <meta name="authors" content="Ludo, Damien, Emilio">
@@ -14,8 +14,8 @@
         <div class="header-container">
             <div class="logo-section">
                 <div class="company-info">
-                    <h1>Iron4Software</h1>
-                    <p>Saint-Martin-de-Londres, France</p>
+                    <h1>I4S groupe 2</h1>
+                    <p>DataScientest, France</p>
                 </div>
             </div>
             

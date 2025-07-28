@@ -5,7 +5,7 @@
  * @location DataScientest, France
  */
 
-define('DB_HOST', 'localhost');
+define('DB_HOST', '127.0.0.1');
 define('DB_USER', 'iron4_admin');
 define('DB_PASS', 'Iron4Soft2024!');
 define('DB_NAME', 'iron4software');
@@ -16,18 +16,19 @@ class Database {
     
     private function __construct() {
         try {
-            $this->connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+            $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
+            $this->connection = new PDO($dsn, DB_USER, DB_PASS);
             
-            if ($this->connection->connect_error) {
-                throw new Exception("Connexion échouée: " . $this->connection->connect_error);
-            }
+            // Configuration PDO
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             
             // Configuration MySQL vulnérable
-            $this->connection->query("SET sql_mode = ''");
+            $this->connection->exec("SET sql_mode = ''");
             
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
             error_log("Database Error: " . $e->getMessage());
-            die("Erreur de connexion à la base de données");
+            throw new Exception("Impossible de se connecter à la base de données: " . $e->getMessage());
         }
     }
     
