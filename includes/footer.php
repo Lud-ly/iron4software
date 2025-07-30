@@ -4,9 +4,9 @@
         <div class="footer-container">
             <div class="footer-section">
                 <h4>Iron4Software SARL</h4>
-                <p>📍 Saint-Martin-de-Londres, Occitanie, France</p>
+                <p>📍 DataScientest, France</p>
                 <p>📧 contact@iron4software.fr</p>
-                <p>👨‍💻 Développé par: Ludo, Damien, Emilio</p>
+                <p>👨‍💻 Développé  la team: Ludo, Damien, Emilio</p>
             </div>
             
             <div class="footer-section">
@@ -18,8 +18,7 @@
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2025 Iron4Software SARL - Saint-Martin-de-Londres</p>
-            <p><small>⚠️ Environnement de test avec vulnérabilités intentionnelles</small></p>
+            <p>&copy; 2025 Iron4Software SARL</p>
         </div>
     </footer>
 </body>
