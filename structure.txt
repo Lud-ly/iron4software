@@ -19,7 +19,7 @@ iron4software/
 ├── assets/
 │   └── css/
 │       └── style.css
+├── uploads/
+│   └── (fichiers uploadés ici)
 ├── setup.sql
 └── README.md
-
-

@@ -22,10 +22,6 @@ Application web de la société Iron4Software SARL  avec vulnérabilités intent
 - URL: http://127.0.0.1
 - Comptes: admin/admin123, jdupont/password, mmartin/test123, sgarcia/iron4
 
-## Vulnérabilités
-- File upload non sécurisé
-- Mots de passe en clair
-- Configuration PHP vulnérable
 
 ## ⚠️ après deploy
 - chmod 755 /var/www/html/iron4software/logs
@@ -100,3 +96,50 @@ Permet exploitation d’une CVE connue via simple upload.
 Aucune validation côté serveur → tous les classiques des failles upload sont présents.
 
    ![tools](assets/images/upload_failles.png)
+
+
+
+   ## File upload non sécurisé
+    Le script d’upload (tools.php) accepte tout type de fichier, sans filtrage ni restriction, permettant :
+
+        Téléversement de fichiers malveillants ou de scripts PHP.
+
+        Éventuelle exécution de code arbitraire (webshell, backdoor).
+
+        Exploitation de failles GD/imageloadfont (ex: CVE-2022-31630) via fichiers .gdf craftés.
+
+        Path traversal possible : le nom de fichier n’est pas nettoyé.
+
+   ## Stockage des mots de passe en clair (setup.sql, database.php) :
+
+    Les mots de passe utilisateurs ne sont pas hashés ni chiffrés, stockés tels quels dans la base.
+
+    Si la base/le code est compromis, extraction immédiate possible.
+
+
+   ## Configuration PHP vulnérable
+    Permissions laxistes sur les dossiers uploads/logs, affichage des erreurs, etc. Peut être exploité.
+
+   
+   ## Injection SQL (secure/admin.php, potentiellement secure/reports.php):
+
+    Les entrées utilisateurs sont injectées sans requêtes préparées.
+
+    Un attaquant peut lire, modifier ou supprimer des données via des payloads SQLi (ex : ' OR 1=1 --).
+
+    MySQL 8 n’atténue pas ces injections sur du SQL concaténé (pas d’escape auto).
+
+
+   ## Local File Inclusion (LFI) (secure/reports.php):
+
+    N’importe quel fichier du serveur peut être inclus et lu via le paramètre include.
+
+    Exploitable pour lire des fichiers sensibles autant système que projet (ex : /etc/passwd, config/database.php).
+
+    Possibilité de wrapper PHP (ex : php://filter/convert.base64-encode/resource=...) pour extraire le code source PHP.
+
+   ## Pas de limitations sur la taille du fichier uploadé
+    Permet des attaques par saturation du disque (DoS).
+
+   ## Gestion incomplète des erreurs
+    Peu de gestion d’erreurs côté upload et base.
