@@ -51,10 +51,11 @@ include '../includes/header.php';
                     </ul>
                 </div>
                 
-                <?php if ($searchResults && $searchResults->num_rows > 0): ?>
+              
+            <?php if (!empty($searchResults)): ?>
                 <table class="data-table">
                     <thead>
-                        <tr>
+                        <tr>    
                             <th>ID</th>
                             <th>Utilisateur</th>
                             <th>Rôle</th>
@@ -63,7 +64,7 @@ include '../includes/header.php';
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($employee = $searchResults->fetch_assoc()): ?>
+                        <?php foreach ($searchResults as $employee): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($employee['id']); ?></td>
                             <td><?php echo htmlspecialchars($employee['username']); ?></td>
@@ -71,12 +72,13 @@ include '../includes/header.php';
                             <td><?php echo htmlspecialchars($employee['department']); ?></td>
                             <td><?php echo htmlspecialchars($employee['status']); ?></td>
                         </tr>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                     </tbody>
-                </table>
+                    </table>
                 <?php elseif (isset($_GET['search'])): ?>
-                <p>Aucun résultat trouvé pour "<?php echo htmlspecialchars($_GET['search']); ?>"</p>
+                    <p>Aucun résultat trouvé pour "<?php echo htmlspecialchars($_GET['search']); ?>"</p>
                 <?php endif; ?>
+
             </div>
         </div>
     </div>
