@@ -22,16 +22,16 @@
             <?php if (Security::isLoggedIn()): ?>
             <nav class="main-nav">
                 <ul class="nav-menu">
-                    <li><a href="/iron4software/secure/dashboard.php">🏠 Dashboard</a></li>
-                    <li><a href="/iron4software/secure/tools.php">🔧 Outils</a></li>
-                    <li><a href="/iron4software/secure/admin.php">⚙️ Admin</a></li>
-                    <li><a href="/iron4software/secure/reports.php">📊 Rapports</a></li>
+                    <li><a href="/secure/dashboard.php">🏠 Dashboard</a></li>
+                    <li><a href="/secure/tools.php">🔧 Outils</a></li>
+                    <li><a href="/secure/admin.php">⚙️ Admin</a></li>
+                    <li><a href="/secure/reports.php">📊 Rapports</a></li>
                 </ul>
             </nav>
             
             <div class="user-info">
                 <span>👤 <?php echo htmlspecialchars($_SESSION['username']); ?></span>
-                <a href="/iron4software/auth/logout.php" class="btn btn-logout">Déconnexion</a>
+                <a href="/auth/logout.php" class="btn btn-logout">Déconnexion</a>
             </div>
             <?php endif; ?>
         </div>

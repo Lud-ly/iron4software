@@ -11,7 +11,7 @@ $error = '';
 $success = '';
 
 if (Security::isLoggedIn()) {
-    header('Location: /iron4software/secure/dashboard.php');
+    header('Location: /secure/dashboard.php');
     exit;
 }
 
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($username) && !empty($password)) {
         if (Security::login($username, $password)) {
             $success = "Connexion réussie !";
-            header("refresh:1;url=/iron4software/secure/dashboard.php");
+            header("refresh:1;url=/secure/dashboard.php");
         } else {
             $error = "Identifiants incorrects";
         }

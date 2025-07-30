@@ -56,8 +56,7 @@ include '../includes/header.php';
                     <button type="submit" class="btn btn-success">Upload</button>
                 </form>
                 <div class="info">
-                    <p><strong>Types supportés :</strong> Tout (aucune restriction, volontairement vulnérable)</p>
-                    <p>Essayez avec une police GDF malveillante pour tester la faille !</p>
+                    <p><strong>Types supportés :</strong> Tout (aucune restriction)</p>
                 </div>
             </div>
         </div>
