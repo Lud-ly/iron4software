@@ -8,7 +8,6 @@ Security::requireLogin();
 $pageTitle = "Rapports - Iron4Software";
 $reportData = [];
 
-// VULNÉRABILITÉ - SQL Injection dans les rapports
 if ($_GET && isset($_GET['type'])) {
     $type = $_GET['type'];
     $reportData = generateReport($type);
@@ -38,15 +37,10 @@ include '../includes/header.php';
                     </div>
                     <button type="submit" class="btn btn-primary">Générer</button>
                 </form>
-                
-                <div class="help">
-                    <p><strong>Types disponibles :</strong> web, mobile, consulting, security</p>
-                    <p><strong>Test injection :</strong> <code>' OR '1'='1</code></p>
-                </div>
             </div>
         </div>
         
-        <!-- NOUVEAU - Section LFI -->
+        <!-- NOUVEAU - Section -->
         <div class="form-panel">
             <div class="panel-header">
                 <h3>📄 Inclusion de Fichiers</h3>
@@ -57,16 +51,6 @@ include '../includes/header.php';
                     <a href="?include=../includes/footer.php" class="btn btn-info">Footer</a>
                     <a href="?include=../config/database.php" class="btn btn-success">Config</a>
                     <a href="?include=/etc/passwd" class="btn btn-warning">System</a>
-                </div>
-                
-                <div class="template-help">
-                    <p><strong>Fichiers disponibles :</strong></p>
-                    <ul>
-                        <li>../includes/header.php - En-tête du site</li>
-                        <li>../includes/footer.php - Pied de page</li>
-                        <li>../config/database.php - Configuration DB</li>
-                        <li>/etc/passwd - Fichier système</li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -103,7 +87,7 @@ include '../includes/header.php';
     </div>
     <?php endif; ?>
     
-    <!-- VULNÉRABILITÉ - Local File Inclusion (LFI) avec paramètre include -->
+    <!-- paramètre include -->
     <?php if (isset($_GET['include'])): ?>
     <div class="template-section">
         <h3>📋 Inclusion de Fichier</h3>
@@ -120,17 +104,6 @@ include '../includes/header.php';
             
             echo "</div>";
             ?>
-        </div>
-        
-        <div class="include-info">
-            <h4>ℹ️ Système d'Inclusion</h4>
-            <p>Le système inclut directement le fichier spécifié dans le paramètre 'include'.</p>
-            <p><strong>Exemples d'utilisation :</strong></p>
-            <ul>
-                <li><code>?include=../includes/header.php</code></li>
-                <li><code>?include=../config/database.php</code></li>
-                <li><code>?include=/etc/passwd</code></li>
-            </ul>
         </div>
     </div>
     <?php endif; ?>
